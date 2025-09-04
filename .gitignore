@@ -1,0 +1,11 @@
+echo 
+*.pyc
+__pycache__/
+venv/
+my_venv/
+db.sqlite3
+media/
+staticfiles/
+.vscode/
+.idea/
+*.pkl > .gitignore
