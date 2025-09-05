@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fertilizer Recommendation</title>
+    <style>
+        body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+        .container { background: #fff; padding: 20px; max-width: 500px; margin: auto; border-radius: 8px; }
+        h2 { text-align: center; }
+        label, select, input { display: block; width: 100%; margin: 10px 0; }
+        button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 15px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fertilizer Recommendation</h2>
+        <form id="fertilizerForm">
+            <label>Temperature:</label>
+            <input type="number" step="0.1" name="Temperature" min="0.1" required>
+
+            <label>Moisture:</label>
+            <input type="number" step="0.1" name="Moisture" min="0.1" required>
+
+            <label>Rainfall:</label>
+            <input type="number" step="0.1" name="Rainfall" min="0" required>
+
+            <label>PH:</label>
+            <input type="number" step="0.1" name="PH" min="0" max="14" required>
+
+            <label>Nitrogen:</label>
+            <input type="number" step="0.1" name="Nitrogen" min="0.1" required>
+
+            <label>Phosphorous:</label>
+            <input type="number" step="0.1" name="Phosphorous" min="0.1" required>
+
+            <label>Potassium:</label>
+            <input type="number" step="0.1" name="Potassium" min="0.1" required>
+
+            <label>Carbon:</label>
+            <input type="number" step="0.1" name="Carbon" min="0.1" required>
+
+            <label>Soil:</label>
+            <select name="Soil" required>
+                <option>Acidic_Soil</option>
+                <option>Alkaline_Soil</option>
+                <option>Loamy_Soil</option>
+                <option>Neutral_Soil</option>
+                <option>Peaty_Soil</option>
+            </select>
+
+            <label>Crop:</label>
+            <select name="Crop" required>
+                <option>Rice</option>
+                <option>Moth Beans</option>
+                <option>Pomegranate</option>
+                <option>Papaya</option>
+                <option>Orange</option>
+                <option>Muskmelon</option>
+                <option>Mango</option>
+                <option>Apple</option>
+                <option>Grapes</option>
+                <option>Banana</option>
+                <option>Chickpea</option>
+                <option>Pigeon Peas</option>
+                <option>Adzuki Beans</option>
+                <option>Black gram</option>
+                <option>Coconut</option>
+                <option>Kidney Beans</option>
+                <option>Wheat</option>
+                <option>Tobacco</option>
+                <option>Sugarcane</option>
+                <option>Rubber</option>
+                <option>Peas</option>
+                <option>Ground Nut</option>
+                <option>Cotton</option>
+                <option>Coffee</option>
+                <option>Jute</option>
+                <option>Lentil</option>
+                <option>Maize</option>
+                <option>Millet</option>
+                <option>Tea</option>
+                <option>Mung Bean</option>
+                <option>Watermelon</option>
+            </select>
+
+            <button type="submit">Get Recommendation</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('fertilizerForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form).entries());
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/predict/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                document.getElementById('result').innerText = result.error
+                    ? `Error: ${result.error}`
+                    : `Recommended Fertilizer: ${result.fertilizer_name}`;
+            } catch (err) {
+                document.getElementById('result').innerText = `Request failed: ${err}`;
+            }
+        });
+    </script>
+</body>
+</html>
