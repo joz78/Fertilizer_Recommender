@@ -1,4 +1,4 @@
-## 📈 Monitoring Model Performance in Production
+##  Monitoring Model Performance in Production
 
 To ensure my fertilizer recommendation model remains accurate and reliable in production, I’ll implement a structured monitoring strategy:
 
