@@ -2,6 +2,7 @@ echo
 *.pyc
 __pycache__/
 venv/
+.env
 my_venv/
 db.sqlite3
 media/
