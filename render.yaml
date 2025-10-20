@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: fertilizer-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn fertilizer_api.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: fertilizer_api.settings
